@@ -1,0 +1,28 @@
+
+server:
+   port: 7878
+   servlet:
+       context-path: /ctrlthing
+   error:
+      whitelabel:
+           enabled: false
+      include-exception: true
+      include-stacktrace: always
+
+spring:
+   main:
+     allow-bean-definition-overriding: true
+   messages:
+     fallback-to-system-locale: true
+     encoding: ISO-8859-1
+   thymeleaf:
+     cache: true
+   web:
+     resources:
+       cache:
+         period: 120000
+logging:
+   level:
+     io:
+       netty: DEBUG
+     reactor: DEBUG

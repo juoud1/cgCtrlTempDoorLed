@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Dongongo">
+	<meta name="description" content="Lab1 controle photon">
+	<title>Été 2021 - Lab1 controle photon</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+	<script src="https://cdn.jsdelivr.net/sharer.js/latest/sharer.min.js"></script>
+	
+	<style type="text/css">
+		*{
+		    margin:0;
+		    padding:0;
+		}
+		
+		aside, footer, header, hgroup, nav, div{
+		    display:block;
+		    box-sizing:border-box;
+		}
+		
+		ul {
+		    color:bleu;
+			list-style-type: none;
+			background-color: #c2b280;
+			padding: 0.5em;
+		}
+		
+		ul li {
+		    margin-top: 0.15em;
+		    margin-bottom: 0.15em;
+		    padding-top: 0.05em;
+		    padding-bottom: 0.05em;
+		}
+		
+		a#aDongongo, a#aZied, a#a2Etudiants{
+			position:relative;
+			color:bleu;
+			text-align:center;
+			text-decoration:none;
+			padding:0.15em;
+			width: 75%;
+			z-index: 11500;
+		}
+		
+		body {
+		    width:100%;
+		    background-color: #F8F8F8;
+		    font-family: Cambria, 'Times New Roman', serif;
+		    color:green;
+		    box-sizing:border-box;
+		}
+		
+		h1#titlePcpl {
+		    font-family:Impact;
+		    font-size:17.5pt;
+		    text-align:center;
+		    color:darkblue;
+		    background-color:white;
+		    width:30%;
+		    margin-left:auto;
+		    margin-right:auto;
+		    margin-top:0.02em;
+		    margin-bottom:.15em;
+		    padding:.05em;
+		    border:double;
+		    border-radius:3px;
+		}
+		
+		img{
+		    background:none repeat scroll 0 0 #F8F8F8;
+		    border:outset;
+		}
+		
+		nav{
+		    position:relative;
+		    
+		    float:left;
+		    width:15em/*19%*/;
+		    min-width:10em;
+		    padding-top:5em;
+		    padding-left:10px;
+		    margin-top:15px;
+		    
+		}
+		
+		#main{
+		    position:relative;
+		    
+		    margin-top:5px;
+		    padding:7px;
+		    float:left;
+		    width:65%/*60%*/;
+		    /*border:outset;*/
+		}
+		
+		nav, #main, footer{
+		    box-sizing:border-box;
+		}
+		
+		footer{
+		    position:relative;
+		    clear:both;
+		    width:auto;
+		    height:25px;
+		    font-size:10px;
+		    text-align:center;
+		    color:hsl(150, 50%, 90%);
+		    background-color:hsl(0, 0%, 50%);
+		    box-sizing:border-box;
+		    min-width:auto/*85.25em*/;
+		    max-width:100%;
+		    padding-top:0.425em;
+		}
+		
+		#main .divmain{
+			
+		    color:navy/*#0068AC*/;
+			margin:0.5em;
+		    padding:0.25em;
+		    border:outset;
+		}
+		
+		
+		#main h2{
+		    font-size:15.5pt;
+		    display:block;
+		    color: darkblue;
+		    text-align:center;
+		    padding:0.25em;
+		    margin-left:auto;
+		    margin-right:auto;
+		    margin-top:0;
+		    margin-bottom:.7em;
+		    border-radius :5px;
+		    width:auto;
+		}
+		
+		#main em {
+			color: navy;
+			text-align: right;
+		}
+		
+		span#tempDongongoVal{
+			margin-right:3.5em;
+			font-size: 18pt;
+			font-weight: bold;
+		}
+		
+		span.etatLedVal, span.etatPorteVal{
+			margin-right:1em;
+			font-size: 18pt;
+			font-weight: bold;
+		}
+		
+		.btn {
+				/*position:relative;
+				font-size:12pt;
+				font-weight:bold;*/
+		        width:4em;
+		        margin-left:.4%;
+		        z-index: 1007;		
+		}
+		
+	</style>
+ </head>
+<body>
+	<div class="container">
+		<header style="position: relative; margin: 2em 0; margin-top: 0.2em; margin-bottom: 0.2em; padding: 0.2em; background-color:#c2b280;">
+			<h1 id="titlePcpl">Page Web : Controle de photons</h1>
+		</header>
+		
+		<nav>
+	   
+	    </nav>
+		
+		<div id="main">
+			<div id="divDongongo" class="divmain">
+	            <h2 id="titleDongongo">Photon Étudiant #1 : <em>Judicael</em> </h2>
+				<span>Température : </span> <span id="tempDongongoVal"></span>
+				<input type="radio" id="choix_tempCelciusDongongo" class="tempRadio" name="choixDongongo" value="celcius" checked onchange="getTemperatureValuePeriodically(1)">  Celcius    
+				<input type="radio" id="choix_tempFahrenheitDongongo" class="tempRadio" name="choixDongongo" value="fahrenheit" onchange="getTemperatureValuePeriodically(1)">  Fahrenheit <br>
+				
+				<br>
+				<br>
+				<span>État de la porte : </span> <span id="etatPorteDongongoVal" class="etatPorteVal"></span>
+				<span>   à : </span> <span id="dateEtatPorteDongongoVal"></span>
+				
+				<br>
+				<br>
+				<br>
+				<span>Controle de la LED : </span>
+				<button id="buttonOnDongongo" class="btn" onclick="setLedStatus('ON')">ON</button>
+				<button id="buttonOffDongongo" class="btn" onclick="setLedStatus('OFF')">OFF</button>
+				
+				<svg width="50" height="50" >
+					<circle id="dongongoLed" cx="30" cy="40" r="10" fill="none" /> 
+				</svg>
+				<span>  depuis : </span> <span id="dateEtatLedDongongoVal"></span>
+				<br>
+				<br>
+			</div>
+		</div>
+		
+		<nav>
+	            
+	    </nav>
+		<footer style="position: relative; margin-bottom: 0.2em; padding: 0.2em; background-color:#c2b280; height: 5em;">
+			<p class="text-end" style="margin-top: 1.25em; margin-right: 0.25em;">Dobatii &#169; 2021</p>
+		</footer>
+	</div>
+ <script type="text/javascript">
+	 var divDongongo = document.getElementById("divDongongo");
+	 var divZied = document.getElementById("divZied");
+	 var divMain = document.getElementById("main");
+	 
+	 var varTemperature;
+	 var varDoorStatus;
+	 var varDeviceID;
+	 var varAccessToken;
+	 var controle = 0;
+	 
+	 var intervalVar, intervalDoorStatusVar;
+	 var temperatureForDoorStatus = 0; //Contient la valeur de temperature affichée présentement
+	 
+	 function getTemperatureValuePeriodically(localIndex) {
+		intervalVar = setInterval(getCurrentTemperatureValue, 1500, localIndex); //chaque 1,5s
+	 }
+	 
+	 function clearTemperatureValuePeriodically(){
+		clearInterval(intervalVar);
+	 }
+	 
+	 function getDoorStatus(inputValue) {
+	    var func = "getDoorStatus";
+		varDeviceID = "1d002c001147343438323536";
+		varAccessToken= "7abf31720666c8ab16fc733095b33d782a6c5f9a";
+		
+		var requestURL = "https://api.particle.io/v1/devices/" + varDeviceID + "/" + func + "/";
+		console.log("requestURL In doorStatus : " + requestURL);
+		$.post( requestURL, { params: inputValue, access_token: varAccessToken }, function(dataResult, status, xhr){
+			//document.getElementById("etatLedDongongoVal").innerHTML = dataResult.return_value; //JSON.stringify(dataResult);
+			console.log("dataResult in getDoorStatus : " + dataResult.return_value);
+			
+			if(parseInt(dataResult.return_value) >= 1){
+				document.getElementById("etatPorteDongongoVal").innerHTML="OUVERTE";
+				document.getElementById("etatPorteDongongoVal").style.color = "green";
+			} else
+			{
+				document.getElementById("etatPorteDongongoVal").innerHTML="FERMÉE";
+				document.getElementById("etatPorteDongongoVal").style.color = "brown";
+			}
+			
+			document.getElementById("dateEtatPorteDongongoVal").innerHTML= getLocaleDateTime().replace("T", " ");//new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString(); //new Date().toJSON().slice(0, 22);
+		});
+	 }
+	 
+	 function getCurrentTemperatureValue(localIndex) {
+		console.log("localIndex : " + localIndex);
+		if (1 == localIndex){
+			console.log("In localIndex : " + localIndex);
+			console.log("option choix_tempCelciusDongongo value : " + document.getElementById("choix_tempCelciusDongongo").value);
+			console.log("option choix_tempCelciusDongongo checked : " + document.getElementById("choix_tempCelciusDongongo").checked);
+		 
+			if (document.getElementById("choix_tempCelciusDongongo").checked){
+				varTemperature = "tempCel";
+			} else {
+				varTemperature = "tempFah";
+			}
+		 
+			varDeviceID = "1d002c001147343438323536";
+			varAccessToken= "7abf31720666c8ab16fc733095b33d782a6c5f9a";
+			requestURL = "https://api.particle.io/v1/devices/" + varDeviceID + "/" + varTemperature + "/?access_token=" + varAccessToken; 
+		
+		} else if (2 === localIndex){
+			varDeviceID = "";
+			varAccessToken= "";
+			varName = "";
+			
+		}
+		
+		requestURL = "https://api.particle.io/v1/devices/" + varDeviceID + "/" + varTemperature + "/?access_token=" + varAccessToken;
+		$.getJSON(requestURL, function(tempValue) {
+			console.log("tempValue.result : " + tempValue.result);
+			document.getElementById("tempDongongoVal").innerHTML = tempValue.result;
+			 
+			temperatureForDoorStatus = tempValue.result;
+			console.log("temperatureForDoorStatus : " + temperatureForDoorStatus);
+		});
+		 
+		// Appel à la fonction d'affichage du status de la porte 
+		getDoorStatus(temperatureForDoorStatus);
+		
+	 }
+	 
+	 function setLedStatus(inputValue) {
+		var func = "setLedStatus";
+		varDeviceID = "1d002c001147343438323536";
+		varAccessToken= "7abf31720666c8ab16fc733095b33d782a6c5f9a";
+		
+		var requestURL = "https://api.particle.io/v1/devices/" + varDeviceID + "/" + func + "/";
+		$.post( requestURL, { params: inputValue, access_token: varAccessToken }, function(dataResult, status, xhr){
+			console.log("dataResult in setLedStatus : " + dataResult.return_value);
+			
+			if(parseInt(dataResult.return_value) === 1){
+				document.getElementById("dongongoLed").style.fill="green";
+				document.getElementById("buttonOnDongongo").disabled = true;
+				document.getElementById("buttonOffDongongo").disabled = false;
+			} else
+			{
+				document.getElementById("dongongoLed").style.fill="gray";
+				document.getElementById("buttonOffDongongo").disabled = true;
+				document.getElementById("buttonOnDongongo").disabled = false;
+			}
+			
+			document.getElementById("dateEtatLedDongongoVal").innerHTML= getLocaleDateTime().replace("T", " ").substring(10 , 19);
+			
+		});
+		
+	 }
+	 
+	 function getLocaleDateTime() {
+		return new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString();
+	 }
+	 
+	 function styleDysplay(ctl) {
+		if (divZied.style.display === "none") {
+			divZied.style.display = "block";
+		} else {
+			divZied.style.display = "none";
+		}
+	 }
+	 
+	 document.addEventListener('DOMContentLoaded', function(){ 
+		console.log("Bonjour les amis!");
+		console.log(getLocaleDateTime().replace("T", " "));//.split(getLocaleDateTime().length-5));
+		console.log("Page est prête!");
+		
+		if (divDongongo.style.display === "none") {
+			divDongongo.style.display = "block";
+		}
+		getTemperatureValuePeriodically(1);
+		
+	 }, false);
+ </script>
+</body>
+</html>
