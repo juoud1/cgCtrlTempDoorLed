@@ -14,7 +14,10 @@
 	<name>ctrlTempDoorLed</name>
 	<description>Using photon to control a temperature, a door and a led</description>
 	<properties>
-		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<startClass>com.dobatii.iot.photon.CtrlTempDoorLedApplication</startClass>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,6 +63,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>ctrlTempDoorLed</finalName>
 	</build>
 
 </project>
